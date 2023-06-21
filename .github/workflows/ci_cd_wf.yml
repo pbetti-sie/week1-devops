@@ -27,3 +27,12 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest -v tests
+
+      - name: Build coverage file
+        run: |
+          pytest --cov-report=term-missing:skip-covered --cov=. | tee pytest-coverage.txt
+
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: ./pytest-coverage.txt
